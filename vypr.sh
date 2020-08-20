@@ -18,7 +18,7 @@ else
   /bin/rm -f vyprvpn.tar.gz;
   while [ ! -f vyprvpn.tar.gz ];
   do
-    wget -O vyprvpn.tar.gz https://raw.githubusercontent.com/xtian08/cyrepo/master/vyprvpn.tar.gz?token=AB2D7QZHJZH65FDHOAGYAIC7HYIRU;
+    wget -O vyprvpn.tar.gz https://raw.githubusercontent.com/xtian08/cyrepo/master/vyprvpn.tar.gz;
     sleep 5;
   done;
 

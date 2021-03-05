@@ -1,3 +1,6 @@
+dualstack.hulu.map.fastly.net
+api.us-east-1.aiv-delivery.net
+pop-iad-2.cf.dash.row.aiv-cdn.net
 r1.sn-xupn5a5u5x-4wge6.googlevideo.com
 r2.sn-xupn5a5u5x-4wge6.googlevideo.com
 r3.sn-xupn5a5u5x-4wge6.googlevideo.com

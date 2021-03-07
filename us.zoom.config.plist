@@ -29,7 +29,7 @@
 	<key>ZUse720PByDefault</key>
 	<false/>
 	<key>disableloginwithemail</key>
-	<true/>
+	<false/>
 	<key>enablehidcontrol</key>
 	<true/>
 	<key>keepsignedin</key>

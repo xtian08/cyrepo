@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Enable49Video</key>
+	<true/>
+	<key>EnableEchoCancellation</key>
+	<true/>
+	<key>LastLoginType</key>
+	<true/>
+	<key>ZAutoFitWhenViewShare</key>
+	<true/>
+	<key>ZAutoFullScreenWhenViewShare</key>
+	<true/>
+	<key>ZAutoJoinVoip</key>
+	<true/>
+	<key>ZAutoSSOLogin</key>
+	<true/>
+	<key>ZAutoUpdate</key>
+	<true/>
+	<key>ZDisableVideo</key>
+	<true/>
+	<key>ZDualMonitorOn</key>
+	<true/>
+	<key>ZRemoteControlAllApp</key>
+	<true/>
+	<key>ZSSOHost</key>
+	<string>nyu.zoom.us</string>
+	<key>ZUse720PByDefault</key>
+	<false/>
+	<key>disableloginwithemail</key>
+	<true/>
+	<key>enablehidcontrol</key>
+	<true/>
+	<key>keepsignedin</key>
+	<true/>
+	<key>nofacebook</key>
+	<true/>
+	<key>nogoogle</key>
+	<true/>
+</dict>
+</plist>

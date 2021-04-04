@@ -53,7 +53,7 @@ Expand-Archive -Path winscp.Zip -DestinationPath .\winscp
 
 # Test if previously upgraded and if so then perform cleanup
 $RealeasId = Get-ItemPropertyValue 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name ReleaseId
-if ($RealeasId -eq 2010) {
+if ($RealeasId -eq 2009) {
 Set-Location "C:\"
 Remove-Item -Recurse -Force -Path 'C:\Program Files\NYUAD IT'
 Remove-Item -Force -Path C:\Temp\bypass.ps1

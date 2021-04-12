@@ -3,7 +3,31 @@ Create a custom PowerShell Windows action
 #>
 
 #A1 Cloud Upgrade Script
-#v1.0 Chris Mariano
+#v1.4 Chris Mariano
+
+#1.0 Basic Install
+#1.1 Acquire data from Sftp
+#1.2 Force scut and install
+#1.3 Change installer to msi
+#1.4 Add SaaS detection
+#1.5 msi verbose log c:\temp\a1msi.log
+#1.6 change detection via registry
+
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Force 
+
+#Detect Saas presence
+
+$a1name = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\WOW6432Node\TrendMicro\PC-cillinNTCorp\CurrentVersion -Name "Server"
+$A1Saas = "y5vpnu.manage.trendmicro.com"
+
+If ($a1name -eq $A1Saas) {
+
+Write-Host "***<<Already Installed - Terminating Script>>***"
+Exit 0}
+    else {
+       Write-Host "***<<Saas not found - Proceeding Installation>>***"
+    }
+
 
 #PrimeSCP
 
@@ -25,7 +49,6 @@ Import-Module -name "C:\temp\a1\winscp" -Verbose
     # Create a WinSCP Session.
     $sessionOptions = New-WinSCPSessionOption -Hostname "sftp.abudhabi.nyu.edu" -Protocol Sftp -PortNumber 4410 -Credential $Credential -SshHostKeyFingerprint "ssh-ed25519 255 c1:64:69:dd:07:2a:8f:43:04:89:af:81:35:df:00:b5"
     $session = New-WinSCPSession -SessionOption $sessionOptions
-
 
 
 #tests for the presence of file and if exists tests against known hash, if any tests fail download file
@@ -52,28 +75,21 @@ $temp = "c:\temp\a1\"
 
 
 #download blob files
-    write-host "downloading...."
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+write-host "downloading...."
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     
-    DownloadBlob "scut_1.0.0.zip" "32F9D6A43D5DB120EB23D32D827E1656" "/upload/scut_1.0.0.zip" $temp
-	DownloadBlob "EndpointBasecamp.exe" "534015E09A26EE9FFBC4DB3676650E7F" "/upload/EndpointBasecamp.exe" $temp
-	DownloadBlob "7za920.zip" "2FAC454A90AE96021F4FFC607D4C00F8" "/upload/7za920.zip" $temp
-	Expand-Archive .\7za920.zip -DestinationPath .\7za920
+DownloadBlob "scut_1.0.0.zip" "32F9D6A43D5DB120EB23D32D827E1656" "/upload/scut_1.0.0.zip" $temp
+DownloadBlob "agent_cloud_x64.msi" "25BE51E9ABE7EBEA569FFB2063F4ED11" "/upload/BCagent_cloud_x64.msi" $temp
+DownloadBlob "7za920.zip" "2FAC454A90AE96021F4FFC607D4C00F8" "/upload/7za920.zip" $temp
+Expand-Archive .\7za920.zip -DestinationPath .\7za920
   	
 Set-Location "C:\temp\a1"
 $cmdpath = 'c:\windows\system32\cmd.exe /c '
-$ApexPath="C:\Program Files (x86)\Trend Micro\OfficeScan Client\PccNTMon.exe"
-$ApexState = "pending"
 
 
-#Cut Apex if needed
-If (Test-Path $ApexPath) {
-    $ApexVersion=(Get-ChildItem "C:\Program Files (x86)\Trend Micro\OfficeScan Client\PccNTMon.exe").VersionInfo.ProductVersion
-    #$ApexVersion = 13
-    If ($ApexVersion -ge 14) {
-    $ApexState = "Ready"
-    }
-    else {
+#Force TMOS Cleanup
+
     $7ZipPath = "'C:\temp\a1\7za920\7za.exe'"
     $zipFile = "'C:\temp\a1\scut_1.0.0.zip'"
     $cutdest = "'C:\temp\a1\cut'"
@@ -82,11 +98,9 @@ If (Test-Path $ApexPath) {
     iex $cutcommand
     $cutcommand = "& 'C:\temp\a1\cut\scut.exe' -noinstall"
     iex $cutcommand
-    $ApexState = "Pending"
-    }
-    }
+   
 
-
+     
 #Wait for Cut Process to complete
 do{
     $Proc = Get-Process scut -ErrorAction SilentlyContinue
@@ -94,9 +108,10 @@ do{
 }until($Proc -eq $Null)
 
 #Install Apex one if needed
-if ($ApexState = "Pending") {(iex "c:\temp\a1\EndpointBasecamp.exe").ExitCode}
+Start-Process "msiexec.exe" -ArgumentList "/i ""C:\temp\a1\agent_cloud_x64.msi"" /quiet /norestart /Lv c:\temp\a1msi.log" -NoNewWindow -PassThru
 
-
+#clean installer
+Remove-WinSCPSession -ForceAll
 Stop-Process -Name WinSCP -Force
 Set-Location "C:\"
 Remove-Item -Recurse -Force -Path 'C:\temp\a1'

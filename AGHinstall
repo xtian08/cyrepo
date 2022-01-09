@@ -1,0 +1,47 @@
+#!/bin/sh
+# Switch to Adguard setup
+# Grab packages for AGH and updates.
+opkg update
+opkg install sudo ca-certificates ca-bundle curl wget tar unzip bind-tools
+
+#grab and install AGH
+curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -c edge
+
+#now move DNSMasq
+uci set dhcp.@dnsmasq[0].cachesize='1000'
+uci set dhcp.@dnsmasq[0].noresolv='1'
+uci set dhcp.@dnsmasq[0].server='192.168.1.1'
+uci set dhcp.@dnsmasq[0].port='5353'
+uci set dhcp.@dnsmasq[0].rebind_protection='0'
+
+uci -q delete dhcp.lan.dhcp_option
+uci -q delete dhcp.lan.dns
+uci add_list dhcp.lan.dhcp_option='6,192.168.1.1' # DHCP option 6: which DNS (Domain Name Server) to include in the IP configuration for name resolution
+uci add_list dhcp.lan.dhcp_option='3,192.168.1.1' #DHCP option 3: default router or last resort gateway for this interface
+uci add_list dhcp.lan.dns='::1' #IPv6 Announced DNS
+uci set dhcp.lan.leasetime='24h' #24hr DHCP Leases
+
+# Configure DNS provider
+uci -q delete network.wan.dns
+uci add_list network.wan.dns="1.1.1.1"
+uci add_list network.wan.dns="1.0.0.1"
+ 
+# Configure IPv6 DNS provider
+uci -q delete network.wan6.dns
+uci add_list network.wan6.dns="2606:4700:4700::1111"
+uci add_list network.wan6.dns="2606:4700:4700::1001"
+ 
+# Disable peer ISP DNS
+uci set network.wan.peerdns="0"
+uci set network.wan6.peerdns="0"
+
+uci commit dhcp
+uci commit network
+# Save changes
+
+
+# Restart network + dnsmasq service to reflect changes
+/etc/init.d/network restart
+/etc/init.d/dnsmasq restart
+
+echo 'Goto http://192.168.1.1:3000 and configure AdGuardHome.'

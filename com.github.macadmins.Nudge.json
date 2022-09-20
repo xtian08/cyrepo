@@ -41,9 +41,9 @@
     }
   ],
   "userExperience": {
-    "allowGracePeriods": false,
+    "allowGracePeriods": true,
     "allowUserQuitDeferrals": true,
-    "allowedDeferrals": 1000000,
+    "allowedDeferrals": 15,
     "allowedDeferralsUntilForcedSecondaryQuitButton": 14,
     "approachingRefreshCycle": 6000,
     "approachingWindowTime": 72,
@@ -60,7 +60,6 @@
     "randomDelay": false
   },
   "userInterface": {
-    "actionButtonPath": "default",
     "fallbackLanguage": "en",
     "forceFallbackLanguage": false,
     "forceScreenShotIcon": false,

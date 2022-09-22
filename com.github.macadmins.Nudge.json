@@ -64,7 +64,7 @@
     "actionButtonPath": "munki://updates",
     "fallbackLanguage": "en",
     "forceFallbackLanguage": false,
-    "forceScreenShotIcon": false,
+    "forceScreenShotIcon": true,
     "iconDarkPath": "/somewhere/logoDark.png",
     "iconLightPath": "/somewhere/logoLight.png",
     "screenShotDarkPath": "/somewhere/screenShotDark.png",

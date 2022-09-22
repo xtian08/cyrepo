@@ -15,7 +15,7 @@
   },
   "osVersionRequirements": [
     {
-      "aboutUpdateURL_disabled": "https://support.apple.com/en-us/HT212585",
+      "aboutUpdateURL_disabled": "https://support.apple.com/en-us/HHT212585",
       "aboutUpdateURLs": [
         {
           "_language": "en",
@@ -34,16 +34,17 @@
           "aboutUpdateURL": "https://support.apple.com/de-de/HT212585"
         }
       ],
+      "actionButtonPath": "munki://updates",
       "majorUpgradeAppPath": "/Applications/Install macOS Monterey.app",
-      "requiredInstallationDate": "2022-09-21T00:00:00Z",
+      "requiredInstallationDate": "2022-09-30T00:00:00Z",
       "requiredMinimumOSVersion": "12.6.0",
       "targetedOSVersionsRule": "default"
     }
   ],
   "userExperience": {
-    "allowGracePeriods": true,
+    "allowGracePeriods": false,
     "allowUserQuitDeferrals": true,
-    "allowedDeferrals": 15,
+    "allowedDeferrals": 1000000,
     "allowedDeferralsUntilForcedSecondaryQuitButton": 14,
     "approachingRefreshCycle": 6000,
     "approachingWindowTime": 72,
@@ -60,6 +61,7 @@
     "randomDelay": false
   },
   "userInterface": {
+    "actionButtonPath": "munki://updates",
     "fallbackLanguage": "en",
     "forceFallbackLanguage": false,
     "forceScreenShotIcon": false,
@@ -73,6 +75,7 @@
     "updateElements": [
       {
         "_language": "en",
+        "actionButtonText": "Update Device",
         "customDeferralButtonText": "Custom",
         "customDeferralDropdownText": "Defer",
         "informationButtonText": "More Info",

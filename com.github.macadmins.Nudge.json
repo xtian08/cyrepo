@@ -34,7 +34,6 @@
           "aboutUpdateURL": "https://support.apple.com/de-de/HT212585"
         }
       ],
-      "actionButtonPath": "munki://updates",
       "majorUpgradeAppPath": "/Applications/Install macOS Monterey.app",
       "requiredInstallationDate": "2022-09-30T00:00:00Z",
       "requiredMinimumOSVersion": "12.6.0",
@@ -61,7 +60,6 @@
     "randomDelay": false
   },
   "userInterface": {
-    "actionButtonPath": "munki://updates",
     "fallbackLanguage": "en",
     "forceFallbackLanguage": false,
     "forceScreenShotIcon": true,

@@ -62,7 +62,7 @@
   "userInterface": {
     "fallbackLanguage": "en",
     "forceFallbackLanguage": false,
-    "forceScreenShotIcon": false,
+    "forceScreenShotIcon": true,
     "iconDarkPath": "/somewhere/logoDark.png",
     "iconLightPath": "/somewhere/logoLight.png",
     "screenShotDarkPath": "/Applications/Utilities/InstallAssistant.icns",

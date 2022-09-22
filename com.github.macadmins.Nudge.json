@@ -42,8 +42,8 @@
   ],
   "userExperience": {
     "allowGracePeriods": false,
-    "allowUserQuitDeferrals": true,
-    "allowedDeferrals": 1000000,
+    "allowUserQuitDeferrals": false,
+    "allowedDeferrals": 5,
     "allowedDeferralsUntilForcedSecondaryQuitButton": 14,
     "approachingRefreshCycle": 6000,
     "approachingWindowTime": 72,

@@ -10,3 +10,6 @@ sudo profiles renew -type enrollment
 
 Check if DEP capable or MDM status
 sudo profiles status -type enrollment
+
+
+sudo profiles -Cv

@@ -1,0 +1,8 @@
+
+Enroll to CS
+sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
+Enroll to TR
+sudo jamf enroll -invitation 144893449809870539065774929503755834539 -noPolicy -noRecon
+
+sudo profiles renew -type enrollment
+sudo profiles status -type enrollment

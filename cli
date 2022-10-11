@@ -1,15 +1,17 @@
 
-Enroll to CS
+#Enroll to CS
 sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
 
-Enroll to TR
+#Enroll to TR
 sudo jamf enroll -invitation 144893449809870539065774929503755834539 -noPolicy -noRecon
 
-Enroll to DEP
+#Enroll to DEP
 sudo profiles renew -type enrollment
 
-Check if DEP capable or MDM status
+#Check if DEP capable or MDM status
 sudo profiles status -type enrollment
 
-
 sudo profiles -Cv
+
+#Screensaver start
+/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine

@@ -1,6 +1,8 @@
 
 #Enroll to CS
 sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
+/usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy
+
 
 #Enroll to TR
 sudo jamf enroll -invitation 144893449809870539065774929503755834539 -noPolicy -noRecon

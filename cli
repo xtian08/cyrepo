@@ -17,3 +17,6 @@ sudo profiles -Cv
 
 #Screensaver start
 /System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine
+
+
+/usr/bin/sudo /usr/local/jamf/bin/jamf policy -event xdr

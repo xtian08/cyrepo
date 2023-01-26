@@ -20,3 +20,8 @@ sudo profiles -Cv
 
 
 /usr/bin/sudo /usr/local/jamf/bin/jamf policy -event xdr
+
+
+msiexec.exe /i "c:\windows\AirwatchAgent.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
+
+msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log

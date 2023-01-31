@@ -25,3 +25,13 @@ sudo profiles -Cv
 msiexec.exe /i "c:\windows\AirwatchAgent.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
 
 msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
+
+
+@ECHO off
+VERIFY OTHER 2>nul
+SETLOCAL ENABLEEXTENSIONS
+IF ERRORLEVEL 1 ECHO Unable to enable extensions
+FOR /f "delims=" %%i IN ('reg query HKLM\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts /s') DO SET status=%%i
+REM Run the Workspace ONE Intelligent Hub Installer to Register Device with Staging Account REM msiexec /i "<PATH>\AirwatchAgent.msi" /quiet ENROLL=Y SERVER=<DS URL> LGName=<GROUP ID> USERNAME=<STAGING USERNAME> PASSWORD=<STAGING PASSWORD> ASSIGNTOLOGGEDINUSER=Y /log <PATH TO LOG>
+IF NOT DEFINED status (msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=Y /LOG %temp%\WorkspaceONE.log) ELSE (ECHO Device is already enrolled.)
+ENDLOCAL

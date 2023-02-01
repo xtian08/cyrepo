@@ -35,3 +35,10 @@ FOR /f "delims=" %%i IN ('reg query HKLM\SOFTWARE\Microsoft\Provisioning\OMADM\A
 REM Run the Workspace ONE Intelligent Hub Installer to Register Device with Staging Account REM msiexec /i "<PATH>\AirwatchAgent.msi" /quiet ENROLL=Y SERVER=<DS URL> LGName=<GROUP ID> USERNAME=<STAGING USERNAME> PASSWORD=<STAGING PASSWORD> ASSIGNTOLOGGEDINUSER=Y /log <PATH TO LOG>
 IF NOT DEFINED status (msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=Y /LOG %temp%\WorkspaceONE.log) ELSE (ECHO Device is already enrolled.)
 ENDLOCAL
+
+
+$ProgressPreference='Silent'
+Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v1.3.2691/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile .\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle

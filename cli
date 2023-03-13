@@ -44,4 +44,4 @@ Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
 Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
 
-setup.exe /Auto Upgrade /DynamicUpdate Disable /showoobe None /Telemetry Disable /imageindex 3
+setup.exe /Auto Upgrade /DynamicUpdate Disable /showoobe None /Telemetry Disable /Bitlocker TryKeepActive /EULA accept /imageindex 3 

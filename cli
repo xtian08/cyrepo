@@ -1,4 +1,4 @@
-
+https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sharing
 #Enroll to CS
 sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
 /usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy
@@ -45,3 +45,5 @@ Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
 
 setup.exe /Auto Upgrade /DynamicUpdate Disable /showoobe None /Telemetry Disable /Bitlocker TryKeepActive /EULA accept /imageindex 3 
+
+https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sharing

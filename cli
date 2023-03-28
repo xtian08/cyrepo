@@ -22,10 +22,12 @@ sudo profiles -Cv
 /usr/bin/sudo /usr/local/jamf/bin/jamf policy -event xdr
 
 #Ws1 Enroll
-msiexec.exe /i "c:\windows\AirwatchAgent.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
-
 msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
 
+#Offline AD
+msiexec.exe /i "c:\windows\AirwatchAgent.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=wxtest USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
+msiexec.exe /a "c:\temp\VMwareWS1ProvisioningTool.msi" /qb TARGETDIR="c:\temp\"
+cmd /c c:\temp\VMwareWS1ProvisioningTool.msi -a trackonly --gui
 
 @ECHO off
 VERIFY OTHER 2>nul

@@ -1,6 +1,6 @@
 ﻿[string]$Server = "vpn.abudhabi.nyu.edu"
 [string]$User = "cdm436"
-[string]$Dtxt = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("ZgB0AGgAdAA0AGQANQAxAF0AXQA="))
+[string]$Dtxt = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("ZgB0AGgAdAA0AGQANQAxAC8ALwA="))
 [string]$mfa = "push"
 [string]$banner = "y"
 

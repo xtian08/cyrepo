@@ -3,6 +3,9 @@ https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sha
 sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
 /usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy
 
+/usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/NYUAD-IT/nyuad/main/migrate.sh)"
 
 #Enroll to TR
 sudo jamf enroll -invitation 144893449809870539065774929503755834539 -noPolicy -noRecon

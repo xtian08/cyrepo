@@ -36,14 +36,14 @@
       ],
       "majorUpgradeAppPath": "/Applications/Install macOS Monterey.app",
       "requiredInstallationDate": "2023-01-04T00:00:00Z",
-      "requiredMinimumOSVersion": "12.6.0",
+      "requiredMinimumOSVersion": "14.6.0",
       "targetedOSVersionsRule": "default"
     }
   ],
   "userExperience": {
     "allowGracePeriods": false,
     "allowUserQuitDeferrals": true,
-    "allowedDeferrals": 15,
+    "allowedDeferrals": 999,
     "allowedDeferralsUntilForcedSecondaryQuitButton": 4,
     "approachingRefreshCycle": 6000,
     "approachingWindowTime": 72,

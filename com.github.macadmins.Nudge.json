@@ -21,27 +21,15 @@
           "_language": "en",
           "aboutUpdateURL": "https://support.apple.com/en-us/HT212585"
         },
-        {
-          "_language": "es",
-          "aboutUpdateURL": "https://support.apple.com/es-es/HT212585"
-        },
-        {
-          "_language": "fr",
-          "aboutUpdateURL": "https://support.apple.com/fr-fr/HT212585"
-        },
-        {
-          "_language": "de",
-          "aboutUpdateURL": "https://support.apple.com/de-de/HT212585"
-        }
       ],
       "majorUpgradeAppPath": "/Applications/Install macOS Monterey.app",
-      "requiredInstallationDate": "2024-01-04T00:00:00Z",
-      "requiredMinimumOSVersion": "14.6.0",
+      "requiredInstallationDate": "2023-05-30T00:00:00Z",
+      "requiredMinimumOSVersion": "",
       "targetedOSVersionsRule": "default"
     }
   ],
   "userExperience": {
-    "allowGracePeriods": false,
+    "allowGracePeriods": true,
     "allowUserQuitDeferrals": true,
     "allowedDeferrals": 999,
     "allowedDeferralsUntilForcedSecondaryQuitButton": 4,
@@ -73,14 +61,14 @@
     "updateElements": [
       {
         "_language": "en",
-        "actionButtonText": "Update Device",
+        "actionButtonText": "Device Enrollment",
         "customDeferralButtonText": "Custom",
         "customDeferralDropdownText": "Defer",
-        "informationButtonText": "More Info",
-        "mainContentHeader": "Your device will restart during this update",
+        "informationButtonText": "About Device Enrollment",
+        "mainContentHeader": "MDM Enroll is required by May 30, 2013 (No Restart required)",
         "mainContentNote": "Important Notes",
         "mainContentSubHeader": "Updates can take around 30 minutes to complete",
-        "mainContentText": "An up-to-date device with the latest security updates is essential to ensure that your hardware and data are protected.\n\nTo begin the update, click on the Update Device button and follow the instructions.\n\nIf you have any questions or concerns, please contact the NYUAD IT department at nyuad.it@nyu.edu.",
+        "mainContentText": "Enrollment into MDM is required to ensure that IT can protect your computer with security necessities like encryption and threat detection, please contact the NYUAD IT department at nyuad.it@nyu.edu for any related inquries.",
         "mainHeader": "Your Mac device requires a security update",
         "oneDayDeferralButtonText": "One Day",
         "oneHourDeferralButtonText": "One Hour",

@@ -52,3 +52,6 @@ Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 setup.exe /Auto Upgrade /DynamicUpdate Disable /showoobe None /Telemetry Disable /Bitlocker TryKeepActive /EULA accept /imageindex 3 
 
 https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sharing
+
+
+https://cisco.webex.com/ciscosales/j.php?MTID=m89527a0d10fefa7c2bacd7feee2d1886

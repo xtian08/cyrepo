@@ -60,3 +60,8 @@ https://ds1688.awmdm.com/DeviceServices/Enrollment/DeviceMdmConfiguration.aspx?s
 https://ds1688.awmdm.com/IdentityService/SAML/SamlAuthenticationServiceProvider.aspx?type=Enrollment&sid=5057edf0-4fb6-4caa-a06d-e12ae516c22b&gid=aditmx&returnurl=https://ds1688.awmdm.com/DeviceManagement/Enrollment/complete-samlAuthentication
 https://ds1688.awmdm.com/DeviceManagement/Enrollment
 
+
+#Reload UMAD LaunchAgent
+sudo launchctl bootout gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
+sudo launchctl bootstrap gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
+

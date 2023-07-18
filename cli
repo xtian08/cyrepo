@@ -1,0 +1,67 @@
+https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sharing
+#Enroll to CS
+sudo jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
+/usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy
+
+/usr/bin/sudo /usr/local/jamf/bin/jamf enroll -invitation 227700587874570256902382115838270944670 -noPolicy -noRecon
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/NYUAD-IT/nyuad/main/migrate.sh)"
+
+#Enroll to TR
+sudo jamf enroll -invitation 144893449809870539065774929503755834539 -noPolicy -noRecon
+
+#Enroll to DEP
+sudo profiles renew -type enrollment
+
+#Check if DEP capable or MDM status
+sudo profiles status -type enrollment
+
+sudo profiles -Cv
+
+#Screensaver start
+/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine
+
+
+/usr/bin/sudo /usr/local/jamf/bin/jamf policy -event xdr
+
+#Ws1 Enroll
+msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
+
+#Offline AD
+msiexec.exe /i "c:\windows\AirwatchAgent.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=wxtest USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=N /log C:\ws1.log
+msiexec.exe /a "c:\temp\VMwareWS1ProvisioningTool.msi" /qb TARGETDIR="c:\temp\"
+cmd /c c:\temp\VMwareWS1ProvisioningTool.msi -a trackonly --gui
+
+@ECHO off
+VERIFY OTHER 2>nul
+SETLOCAL ENABLEEXTENSIONS
+IF ERRORLEVEL 1 ECHO Unable to enable extensions
+FOR /f "delims=" %%i IN ('reg query HKLM\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts /s') DO SET status=%%i
+REM Run the Workspace ONE Intelligent Hub Installer to Register Device with Staging Account REM msiexec /i "<PATH>\AirwatchAgent.msi" /quiet ENROLL=Y SERVER=<DS URL> LGName=<GROUP ID> USERNAME=<STAGING USERNAME> PASSWORD=<STAGING PASSWORD> ASSIGNTOLOGGEDINUSER=Y /log <PATH TO LOG>
+IF NOT DEFINED status (msiexec.exe /i "c:\windows\AirwatchAgentarm64.msi" /q ENROLL=Y SERVER=ds1688.awmdm.com LGName=aditwx USERNAME=staging@aditwx.com PASSWORD=nyuadtest ASSIGNTOLOGGEDINUSER=Y /LOG %temp%\WorkspaceONE.log) ELSE (ECHO Device is already enrolled.)
+ENDLOCAL
+
+https://cisco.webex.com/ciscosales/j.php?MTID=m89527a0d10fefa7c2bacd7feee2d1886
+$ProgressPreference='Silent'
+Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v1.3.2691/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile .\MicrosoftDesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+
+
+setup.exe /Auto Upgrade /DynamicUpdate Disable /showoobe None /Telemetry Disable /Bitlocker TryKeepActive /EULA accept /imageindex 3 
+
+https://drive.google.com/drive/folders/1w6G4-mUqQytMfu_M8-hDNtffNu4FblbF?usp=sharing
+
+
+https://cisco.webex.com/ciscosales/j.php?MTID=m89527a0d10fefa7c2bacd7feee2d1886
+
+https://ds1688.awmdm.com/DeviceServices/Enrollment/DeviceMdmConfiguration.aspx?shid=awev2%3Akv1%3ABu2fyuMNLn2G1AzD%3AEF7vr%2BpSJpeK%2FEiitEqClBQaDifuxvgT2AdC6hYdugJE2KFbB4ieuZi3U5fE7r5mjux3pcg%3D
+https://ds1688.awmdm.com/IdentityService/SAML/SamlAuthenticationServiceProvider.aspx?type=Enrollment&sid=5057edf0-4fb6-4caa-a06d-e12ae516c22b&gid=aditmx&returnurl=https://ds1688.awmdm.com/DeviceManagement/Enrollment/complete-samlAuthentication
+https://ds1688.awmdm.com/DeviceManagement/Enrollment
+
+
+#Reload UMAD LaunchAgent
+sudo launchctl bootout gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
+sudo launchctl bootstrap gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
+

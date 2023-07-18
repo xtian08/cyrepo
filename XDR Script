@@ -1,0 +1,32 @@
+import pysftp
+import os
+
+# Acquire binaries required
+cnopts = pysftp.CnOpts();
+cnopts.hostkeys = None
+
+with pysftp.Connection('sftp.abudhabi.nyu.edu', username='cdm436', password='RUTaMOWnKDvdBwxyuuv54gd', port=4410, cnopts=cnopts) as sftp:
+
+    print("Connection succesfully established ... ")  
+    # Defining the remote path file path  
+    remote_File_Path = '/upload/ITWXLDagent.zip'  
+    # Defining a directory in which we have to save the file.  
+    # or absolute "/Users/krunal/Desktop/code/pyt/app.txt"  
+    local_File_Path = 'c:/users/public/ITWXLDagent.zip'  
+    # Using the get method to download a file  
+    sftp.get(remote_File_Path, local_File_Path)  
+
+
+# importing the zipfile module
+from zipfile import ZipFile
+  
+# Extract binaries on local
+with ZipFile("C:\\Users\\public\\ITWXLDagent.zip", 'r') as zObject:
+  
+    # Extracting all the members of the zip 
+    # into a specific location.
+    zObject.extractall(
+        path="C:\\Users\\public\\setup")
+    
+#Install Agent
+os.system('C:\\Users\\Public\\setup\\SelfContainedEpmAgentInstall.msi /qn')

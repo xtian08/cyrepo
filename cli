@@ -65,3 +65,5 @@ https://ds1688.awmdm.com/DeviceManagement/Enrollment
 sudo launchctl bootout gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
 sudo launchctl bootstrap gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plist
 
+
+hubcli mdmcommand --osupdate --productversion “14.1.1” --installaction DownloadOnly

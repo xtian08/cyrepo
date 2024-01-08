@@ -67,3 +67,5 @@ sudo launchctl bootstrap gui/$(id -u) /Library/LaunchAgents/com.erikng.umad.plis
 
 
 hubcli mdmcommand --osupdate --productversion “14.1.1” --installaction DownloadOnly
+
+curl -s https://raw.githubusercontent.com/grahampugh/erase-install/legacy/erase-install.sh | sudo bash /dev/stdin --reinstall --os=13 --update --depnotify --min-drive-space=13 --no-fs --rebootdelay --check-power --force-curl

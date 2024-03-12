@@ -7,7 +7,7 @@
         "days_between_notifications": 0,
         "logo_path": "/Library/nudge/Resources/company_logo.png",
         "main_title_text": "macOS Upgrade",
-        "minimum_os_version": "12.7.4",
+        "minimum_os_version": "13",
         "more_info_url": "https://intranet.nyuad.nyu.edu/administrative-services/technology-services/tech-20/hardware-software/mac-os-upgrade/",
         "no_timer": false,
         "main_subtitle_text": "Attention: Your current Apple OS is on End-of-life service.",

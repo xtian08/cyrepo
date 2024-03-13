@@ -1,0 +1,5 @@
+#!/bin/bash
+log_file="/tmp/osxupgrader.log"
+echo "$password" | sudo -S -u "$current_user" bash -c "$(curl -fsSL https://raw.githubusercontent.com/NYUAD-IT/nyuad/main/erase-install-legacy.sh)" -- --reinstall --update --depnotify --min-drive-space=15 --no-fs --rebootdelay 300 --check-power --power-wait-limit 600 --current-user --no-jamfhelper --no-timeout >> "$log_file" 2>&1
+
+exit 0

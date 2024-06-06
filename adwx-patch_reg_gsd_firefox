@@ -1,4 +1,4 @@
-# Define the main function to search and simulate/delete Mozilla Firefox entries
+ # Define the main function to search and simulate/delete Mozilla Firefox entries
 function Search_Clean_FF_reg {
     param (
         [bool]$simulateDelete = $true
@@ -101,5 +101,91 @@ function Search_Clean_FF_reg {
     }
 }
 
+function check-FF {
+
+    #Get Installed Firefox Version
+    $firefoxPath86 = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+    $firefoxPath64 = Get-ChildItem -Path "${env:ProgramFiles}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+    $firefoxPathARM = Get-ChildItem -Path "${env:ProgramFiles(ARM)}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+    
+    $firefoxPath = $firefoxPath86, $firefoxPath64, $firefoxPathARM | Where-Object { $_ -ne $null } | Select-Object -First 1
+    
+    if ($firefoxPath) {
+        Write-Host ""
+        $firefoxVersion = (Get-Command $firefoxPath.FullName).FileVersionInfo.FileVersion
+        $firefoxType = if ($firefoxPath -eq $firefoxPath86) { "x86" } elseif ($firefoxPath -eq $firefoxPath64) { "x64" } else { "ARM" }
+        Write-Host "Firefox installed is based on $firefoxType"
+        Write-Host "Installed Firefox Version: $firefoxVersion"
+    }
+    else {
+        Write-Host ""
+        Write-Host "Firefox not found. Exiting"
+        break
+    
+    } 
+} 
+
+function install-FF {
+    $progressPreference = 'silentlyContinue'
+    #Get Firefox latest stable version
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $j = Invoke-RestMethod -Uri 'https://product-details.mozilla.org/1.0/firefox_versions.json'
+    $stableversion = $j.LATEST_FIREFOX_VERSION
+    Write-Host "Latest stable firefox: $stableversion"
+    
+    # Define the download URLs for x64 and ARM versions
+    $firefoxURLx64 = "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=en-US"
+    $firefoxURLarm = "https://download.mozilla.org/?product=firefox-latest&os=win64-aarch64&lang=en-US"
+    
+    # Define the installation directory
+    $installDir = "C:\Program Files\Mozilla Firefox"
+    
+    # Create a WebClient object
+    $webClient = New-Object System.Net.WebClient
+    
+    # Download and install Firefox based on the architecture
+    if ($architecture -like "*ARM*") {
+        Write-Host "Installing ARM Firefox..."
+        $webClient.DownloadFile($firefoxURLarm, "$env:TEMP\firefox-installer.exe")
+        Start-Process -Wait -FilePath "$env:TEMP\firefox-installer.exe" -ArgumentList "/S"
+    } else {
+        Write-Host "Installing 64-bit Firefox..."
+        $webClient.DownloadFile($firefoxURLx64, "$env:TEMP\firefox-installer.exe")
+        Start-Process -Wait -FilePath "$env:TEMP\firefox-installer.exe" -ArgumentList "/S"
+    }
+    
+    # Clean up the installer
+    Remove-Item -Path "$env:TEMP\firefox-installer.exe" -Force
+    
+    Write-Host "Firefox installation completed."
+    
+}
+    
+function check-FF {
+
+#Get Installed Firefox Version
+$firefoxPath86 = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+$firefoxPath64 = Get-ChildItem -Path "${env:ProgramFiles}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+$firefoxPathARM = Get-ChildItem -Path "${env:ProgramFiles(ARM)}\Mozilla Firefox\firefox.exe" -ErrorAction SilentlyContinue
+
+$firefoxPath = $firefoxPath86, $firefoxPath64, $firefoxPathARM | Where-Object { $_ -ne $null } | Select-Object -First 1
+
+if ($firefoxPath) {
+    Write-Host ""
+    $firefoxVersion = (Get-Command $firefoxPath.FullName).FileVersionInfo.FileVersion
+    $firefoxType = if ($firefoxPath -eq $firefoxPath86) { "x86" } elseif ($firefoxPath -eq $firefoxPath64) { "x64" } else { "ARM" }
+    Write-Host "Firefox installed is based on $firefoxType"
+    Write-Host "Installed Firefox Version: $firefoxVersion"
+    install-FF
+}
+else {
+    Write-Host ""
+    Write-Host "Firefox not found. Exiting"
+} 
+}
+       
 # Call the function with the desired simulation flag
-Search_Clean_FF_reg -simulateDelete $true
+Search_Clean_FF_reg -simulateDelete $false
+check-FF
+ 
+ z 

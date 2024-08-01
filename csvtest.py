@@ -43,7 +43,7 @@ relevance = """
   set of bes properties whose (reserved flag of it and name of it as lowercase = ("mac address")),
   set of bes properties whose (name of it as lowercase = ("serial number")),
   set of bes properties whose (name of it as lowercase = ("asset tag")),
-  set of bes properties whose (name of it as lowercase = ("0_Serial_No._2.0")),
+  set of bes properties whose (name of it as lowercase = ("0_serial")),
   set of bes properties whose (name of it as lowercase = ("last report time"))
 )
 """

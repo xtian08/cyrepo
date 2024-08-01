@@ -2,7 +2,10 @@ import requests, json, csv
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # Config
-output_file="D:\\BigFix_API_Data\\output.csv"
+output_file1 = "/tmp/output.csv"
+output_file2 = "/tmp/output2.csv"
+output_file1="D:\\BigFix_API_Data\\output.csv"
+output_file2="D:\\BigFix_API_Data\\output2.csv"
 operation = "POST"
 certverify = False
 url = "https://10.10.10.10:523/api/query"
@@ -40,8 +43,8 @@ relevance = """
   set of bes properties whose (reserved flag of it and name of it as lowercase = ("mac address")),
   set of bes properties whose (name of it as lowercase = ("serial number")),
   set of bes properties whose (name of it as lowercase = ("asset tag")),
-  set of bes properties whose (name of it as lowercase = ("last report time")),
-  set of bes properties whose (name of it as lowercase = ("0_serial"))
+  set of bes properties whose (name of it as lowercase = ("0_Serial_No._2.0")),
+  set of bes properties whose (name of it as lowercase = ("last report time"))
 )
 """
 
@@ -67,17 +70,19 @@ def process_result(result):
     result[8] = sanitize_serial(result[8], result[0])
     return result
 
-def write_csv(results):
-    with open(output_file, 'w', newline='', encoding="utf-8") as f:
-        f.write("sep=|\n")
+def write_csv(results, file_path, sep_line):
+    with open(file_path, 'w', newline='', encoding="utf-8") as f:
+        if sep_line:
+            f.write("sep=|\n")
         writer = csv.writer(f, delimiter='|')
         writer.writerow(csv_headers)
         writer.writerows(map(process_result, results))
-    print(f"Wrote to {output_file}")
+    print(f"Wrote to {file_path}")
 
 try:
     res = requests.request(operation, url, data=query, verify=certverify, auth=auth)
     results = handle_response(res)
-    write_csv(results)
+    write_csv(results, output_file1, sep_line=False)
+    write_csv(results, output_file2, sep_line=True)
 except Exception as e:
     print(f"Error: {e}")

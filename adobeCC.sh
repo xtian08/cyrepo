@@ -93,7 +93,7 @@ uninstaller_path="/Applications/Utilities/Adobe Creative Cloud/Utils/Creative Cl
 # Check if the uninstaller exists
 if [ -f "$uninstaller_path" ]; then
     echo "Adobe Creative Cloud Uninstaller found. Executing..."
-    sudo "$uninstaller_path" -u
+    #sudo "$uninstaller_path" -u
 else
     echo "Adobe Creative Cloud Uninstaller not found."
 fi

@@ -73,8 +73,8 @@ current_user=$(stat -f "%Su" /dev/console)
 echo "Current user: $current_user"
 
 # Remove old SS config
-sudo -u "$current_user" defaults -currentHost delete com.apple.ScreenSaverPhotoChooser
-sudo -u "$current_user" defaults -currentHost delete com.apple.ScreenSaver.iLifeSlideShows
+sudo -u "$current_user" defaults -currentHost delete com.apple.ScreenSaverPhotoChooser > /dev/null 2>&1
+sudo -u "$current_user" defaults -currentHost delete com.apple.ScreenSaver.iLifeSlideShows > /dev/null 2>&1
 
 # Check SS
 sudo bash -c "$(curl -fsSL $macOS14SS)"

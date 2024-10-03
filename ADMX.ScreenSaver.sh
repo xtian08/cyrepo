@@ -30,7 +30,7 @@ set_module_if_exists() {
     local user=$1
     for scr_path in "${scr_paths[@]}"; do
         if [ -d "$scr_path" ]; then
-            echo "$scr_path exists."
+            #echo "$scr_path exists."
             sudo -u "$user" defaults write com.apple.screensaver moduleDict -dict moduleName -string "iLifeSlideshows" path -string "/System/Library/ExtensionKit/Extensions/iLifeSlideshows.appex" type -int 0
             break
         fi
@@ -55,5 +55,7 @@ set_module_if_exists "$current_user"
 # Refresh preferences daemon
 killall -hup cfprefsd
 #open -a ScreenSaverEngine
+
+Echo "NYUAD ScreenSaver succesfully updated"
 
 exit 0

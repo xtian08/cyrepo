@@ -20,7 +20,7 @@ function getDefinedVariables() {
 function getStarterVariables() {
 	# Do not edit these variables.
 	echo "$(date) - Script will only run on macOS version ${desiredmacOSVersion} or later (macOS ${desiredmacOSVersion} - Present)."
-	echo "$(date) - screenSaverBase64: ${screenSaverBase64}"
+	#echo "$(date) - screenSaverBase64: ${screenSaverBase64}"
 	currentRFC3339UTCDate="$(date -u '+%FT%TZ')"
 	echo "$(date) - currentRFC3339UTCDate: ${currentRFC3339UTCDate}"
 	loggedInUser=$(/usr/bin/stat -f%Su /dev/console)
@@ -159,10 +159,10 @@ function killWallpaperAgent() {
 function finalize() {
     echo ""
     if [[ "${exitCode}" == "0" ]]; then
-        echo "$(date) - Mission accomplished!"
+        echo "$(date) - Preference Updated!"
         exit 0
     else
-        echo "$(date) - Abort mission..."
+        echo "$(date) - Preference Failed!"
         exit 1
     fi    
 }

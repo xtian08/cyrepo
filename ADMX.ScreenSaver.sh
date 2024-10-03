@@ -1,19 +1,37 @@
 #!/bin/bash
 # Created by Chris Mariano GIT:xtian08
 
+#Variables
+SSVersion="SSaverVer-04102024-01"
+photoloc="/Users/Shared/NYUAD"
 scr_paths=(
     "/System/Library/Frameworks/ScreenSaver.framework/Resources/iLifeSlideshows.saver"
     "/System/Library/Frameworks/ScreenSaver.framework/PlugIns/iLifeSlideshows.appex"
     "/System/Library/ExtensionKit/Extensions/iLifeSlideshows.appex"
 )
-photoloc="/Users/Shared/NYUAD"
+
+# Check if SSaver is current
+if [ -e "/Users/Shared/$SSVersion" ]; then
+    echo "SSaver is current."
+    exit 0
+else
+    # Delete files in /tmp starting with "ver"
+    echo "Deleting files old SSaverVer-* files..."
+    sudo rm -f /Users/Shared/SSaverVer*
+
+    # Check if the folder exists before attempting to delete it
+    if [ -d "/Users/Shared/NYUAD" ]; then
+        sudo rm -rf "/Users/Shared/NYUAD"
+        echo "Folder /Users/Shared/NYUAD deleted."
+    else
+        echo "Folder /Users/Shared/NYUAD does not exist."
+        mkdir -p "$photoloc"
+    fi
+fi
 
 # GitHub repository and folder
 repo="NYUAD-IT/nyuad"
 folder="SSaver"
-
-# Create the target directory
-mkdir -p "$photoloc"
 
 # Fetch and download files
 curl -s "https://api.github.com/repos/$repo/contents/$folder" | \
@@ -70,5 +88,6 @@ killall -hup cfprefsd
 #open -a ScreenSaverEngine
 
 Echo "NYUAD ScreenSaver succesfully updated"
+sudo touch "/Users/Shared/$SSVersion"
 
 exit 0

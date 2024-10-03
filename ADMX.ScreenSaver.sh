@@ -53,7 +53,7 @@ apply_screensaver_settings() {
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver showClock -bool true
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver tokenRemovalAction -int 0
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName "iLifeSlideshows"
-    sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver moduleDict -dict-add path "/System/Library/ExtensionKit/Extensions/iLifeSlideshows.appex"
+    sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver moduleDict -dict-add path "$scr_path"
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver moduleDict -dict-add type -int 0
 }
 
@@ -63,7 +63,7 @@ set_module_if_exists() {
     for scr_path in "${scr_paths[@]}"; do
         if [ -d "$scr_path" ]; then
             #echo "$scr_path exists."
-            sudo -u "$user" defaults write com.apple.screensaver moduleDict -dict moduleName -string "iLifeSlideshows" path -string "/System/Library/ExtensionKit/Extensions/iLifeSlideshows.appex" type -int 0
+            sudo -u "$user" defaults write com.apple.screensaver moduleDict -dict moduleName -string "iLifeSlideshows" path -string "$scr_path" type -int 0
             break
         fi
     done

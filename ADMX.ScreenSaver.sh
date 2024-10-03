@@ -17,6 +17,7 @@ scr_paths=(
 # Check if SSaver is current
 if [ -e "/Users/Shared/$SSVersion" ]; then
     echo "SSaver is current."
+    sudo bash -c "$(curl -fsSL $macOS14SS)"
     exit 0
 else
     # Delete files in /tmp starting with "ver"

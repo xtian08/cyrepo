@@ -8,6 +8,19 @@ scr_paths=(
 )
 photoloc="/Users/Shared/NYUAD"
 
+# GitHub repository and folder
+repo="NYUAD-IT/nyuad"
+folder="SSaver"
+
+# Create the target directory
+mkdir -p "$photoloc"
+
+# Fetch and download files
+curl -s "https://api.github.com/repos/$repo/contents/$folder" | \
+grep '"name":' | cut -d '"' -f 4 | while read -r file; do
+  sudo curl -L -o "$photoloc/$file" "https://raw.githubusercontent.com/$repo/master/$folder/$file"
+done
+
 # Function to apply screensaver settings
 apply_screensaver_settings() {
     local Cuser=$1

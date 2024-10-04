@@ -2,7 +2,7 @@
 # Created by Chris Mariano GIT:xtian08
 
 #Variables
-SSVersion="SSaverVer-04102024-01"
+SSVersion="SSaverVer-04102024-02"
 photoloc="/Users/Shared/NYUAD"
 repo="NYUAD-IT/nyuad"
 folder="SSaver"
@@ -49,7 +49,7 @@ apply_screensaver_settings() {
     sudo -u "$Cuser" defaults -currentHost write com.apple.ScreenSaverPhotoChooser ShufflesPhotos -bool false
     sudo -u "$Cuser" defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows styleKey -string "Classic"
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver CleanExit -bool true
-    sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver idleTime -int 300
+    sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver idleTime -int 600
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver showClock -bool true
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver tokenRemovalAction -int 0
     sudo -u "$Cuser" defaults -currentHost write com.apple.screensaver moduleDict -dict-add moduleName "iLifeSlideshows"

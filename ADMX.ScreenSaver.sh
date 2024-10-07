@@ -14,15 +14,6 @@ scr_paths=(
     "/System/Library/ExtensionKit/Extensions/iLifeSlideshows.appex"
 )
 
-# Check if the folder exists before attempting to delete it
-if [ -d "$photoloc" ]; then
-    sudo rm -rf "$photoloc"
-    echo "Folder $photoloc deleted."
-else
-    echo "Folder $photoloc does not exist."
-    mkdir -p "$photoloc"
-fi
-
 # Function to apply screensaver settings
 apply_screensaver_settings() {
     local Cuser=$1

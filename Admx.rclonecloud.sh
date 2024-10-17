@@ -2,7 +2,7 @@
 
 # Define the port to use for the authentication process
 AUTH_PORT=53682
-TIMEOUT=15  # Timeout in seconds (5 minutes)
+TIMEOUT=300  # Timeout in seconds (5 minutes)
 
 # Function to display GUI instructions
 show_instructions() {

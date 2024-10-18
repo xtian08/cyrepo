@@ -21,8 +21,7 @@ EOF
 # Function to install rclone using the official installation script
 install_rclone2() {
   echo "Installing rclone..."
-  sudo -v
-  curl https://rclone.org/install.sh | sudo bash
+  sudo -v ; curl https://rclone.org/install.sh | sudo bash
 }
 
 # Function to check if Homebrew is installed
@@ -42,13 +41,14 @@ install_tools() {
   if ! brew list rclone &> /dev/null; then
     echo "Installing rclone..."
     brew install rclone
+    install_rclone2()
   else
     echo "rclone is already installed."
   fi
 
   if ! brew list coreutils &> /dev/null; then
     echo "Installing coreutils..."
-    brew install coreutils
+    #brew install coreutils
   else
     echo "coreutils is already installed."
   fi
@@ -118,10 +118,12 @@ configure_rclone() {
 
   ensure_port_free $AUTH_PORT
 
-  gtimeout $TIMEOUT rclone config create mygoogledrive drive --rc-addr=127.0.0.1:$AUTH_PORT
+  #gtimeout $TIMEOUT rclone config create mygoogledrive drive --rc-addr=127.0.0.1:$AUTH_PORT
+  rclone config create mygoogledrive drive --rc-addr=127.0.0.1:$AUTH_PORT
   close_browser_tab
   select_team_drive
-  gtimeout $TIMEOUT rclone config create myteamdrive drive team_drive "$selected_id" --rc-addr=127.0.0.1:$AUTH_PORT
+  #gtimeout $TIMEOUT rclone config create myteamdrive drive team_drive "$selected_id" --rc-addr=127.0.0.1:$AUTH_PORT
+  rclone config create myteamdrive drive team_drive "$selected_id" --rc-addr=127.0.0.1:$AUTH_PORT
 
   if [ $? -eq 124 ]; then
     echo "Utility timed out after $TIMEOUT seconds."

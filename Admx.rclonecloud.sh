@@ -41,7 +41,7 @@ install_tools() {
   if ! brew list rclone &> /dev/null; then
     echo "Installing rclone..."
     brew install rclone
-    install_rclone2()
+    install_rclone2
   else
     echo "rclone is already installed."
   fi

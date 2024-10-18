@@ -47,7 +47,7 @@ install_tools() {
   fi
 
   if ! brew list coreutils &> /dev/null; then
-    #echo "Installing coreutils..."
+    echo "Checking coreutils..."
     #brew install coreutils
   else
     echo "coreutils is already installed."

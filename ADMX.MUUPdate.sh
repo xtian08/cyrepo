@@ -68,7 +68,7 @@ echo "Highest version available now: $highest_version || "
 
 if [ -z "$highest_version" ]; then
     echo "No OS updates available. Setting static value || "
-    major="15"
+    major="14"
     version=$(grep "^$major\." apple_versions.txt)
     highest_version=$version
     echo "Highest version available: $highest_version || "

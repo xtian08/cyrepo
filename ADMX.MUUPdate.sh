@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Created by Chris Mariano (cdm436@nyu.edu)
@@ -9,7 +10,7 @@
 
 # Define the path to the start date file read.me ws1muu
 echo $(date)
-start_date_file="/Users/shared/muuNOV2024.txt"
+start_date_file="/Users/shared/muufile.txt"
 defer_days="3"
 
 # Check if the start date file exists
@@ -87,10 +88,12 @@ fi
 if (($major_mac < 12)); then
     # If macOS version is less than 12.0, mark as EOL
     echo "EOL"
+    sudo rm "$start_date_file"
     exit 0
 elif (($major_mac >= $major_now && $minor_mac >= $minor_now && sub_minor >= $sub_minor_now)); then
     # If macOS version is up to date, mark as Compliant
     echo "Compliant"
+    sudo rm "$start_date_file"
     exit 0
 else
     # If macOS version is outdated, notify user to upgrade

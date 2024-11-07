@@ -8,6 +8,7 @@
 
 
 # Define the path to the start date file read.me ws1muu
+echo $(date)
 start_date_file="/Users/shared/muuNOV2024.txt"
 defer_days="3"
 

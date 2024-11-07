@@ -98,7 +98,7 @@ else
     remaining_days=$((defer_days - elapsed_days))  # Calculate remaining days
     
     if [ $elapsed_days -ge $defer_days ]; then
-        echo "Forced_Update"
+        echo "Forced_Update to $highest_version"
         sudo /usr/local/bin/hubcli notify \
         -t "NYUAD Mandatory macOS Upgrade" \
         -s "$defer_days days deferral had elapsed." \
@@ -106,7 +106,7 @@ else
         sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP
         exit 0
     else
-        echo "Notify_User"
+        echo "Notify_Update to $highest_version"
         # Defer option notify
         sudo /usr/local/bin/hubcli notify \
         -t "NYUAD Mandatory MAC OS Upgrade" \

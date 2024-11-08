@@ -109,6 +109,8 @@ fi
 #Check if the release date is more than 100 days ago
 if [ $days_diff -gt $delay_days ]; then
     echo "Highest version available: $highest_version"
+elif [ $days_diff -lt 0 ]; then
+    echo "Highest version available: $highest_version"
 elif [ $major_mac -ge $major_version ]; then
     echo "Highest version available: $highest_version" 
 else

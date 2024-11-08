@@ -149,6 +149,12 @@ else
     current_date=$(date +%s)
     elapsed_days=$(( (current_date - start_date) / 86400 ))  # Calculate elapsed days
     remaining_days=$((defer_days - elapsed_days))  # Calculate remaining days
+
+    if [ "$mac_version" == "$highest_version" ]; then
+        echo "Compliant. No action required."
+        sudo rm "$start_date_file"
+        exit 0
+    fi
     
     if [ $elapsed_days -ge $defer_days ]; then
         echo "Forced_Update to $highest_version"

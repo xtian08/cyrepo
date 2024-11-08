@@ -122,6 +122,8 @@ if [ -z "$highest_version" ]; then
     # Check if the release date is more than 100 days ago
     if [ $days_diff -gt $delay_days ]; then
         echo "Allowed OS is $major (static)"
+    elif [ $major_mac -lt $major_version ]; then
+        echo "Allowed OS is $major (static)"
     else
         major=$((major - 1))
         echo "Allowed OS is $major"

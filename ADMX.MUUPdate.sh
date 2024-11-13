@@ -26,12 +26,12 @@ start_date=$(cat "$start_date_file")
 curl -s https://support.apple.com/en-ae/109033 | \
 grep -o '<div class="table-wrapper gb-table">.*</div>' | \
 awk -F'<tr>' '{for(i=2; i<=NF; i++) {gsub(/<\/?(p|th|td|tr)[^>]*>/,"",$i); if($i ~ /macOS/) print $i; else printf "%s\n", $i}}' | \
-tee apple_versions_and_names.txt | \
-grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' > apple_versions.txt
+tee /tmp/apple_versions_and_names.txt | \
+grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' > /tmp/apple_versions.txt
 
 # Get the latest version and its corresponding OS name
-latest_version=$(cat apple_versions_and_names.txt | grep -Eo '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -n 1)
-latest_os_name=$(cat apple_versions_and_names.txt | grep -Eo 'macOS [A-Za-z]+' | head -n 1)
+latest_version=$(cat /tmp/apple_versions_and_names.txt | grep -Eo '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -n 1)
+latest_os_name=$(cat /tmp/apple_versions_and_names.txt | grep -Eo 'macOS [A-Za-z]+' | head -n 1)
 
 # Extract the major version from the latest version (e.g., "15" from "15.1")
 major_version=$(echo $latest_version | cut -d'.' -f1)
@@ -78,7 +78,7 @@ if [ -z "$sub_minor_mac" ]; then
 fi
 
 # Find the corresponding version in the list
-version=$(grep "^$major_mac\." apple_versions.txt)
+version=$(grep "^$major_mac\." /tmp/apple_versions.txt)
 
 # Check if version exists
 if [ -n "$version" ]; then
@@ -128,7 +128,7 @@ if [ -z "$highest_version" ]; then
         major=$((major - 1))
         echo "Allowed OS is $major"
     fi
-    version=$(grep "^$major\." apple_versions.txt)
+    version=$(grep "^$major\." /tmp/apple_versions.txt)
     highest_version=$version
     echo "Highest version available: $highest_version"
 fi
@@ -178,5 +178,5 @@ else
 fi
 
 # Clean up temporary files
-rm apple_versions.txt
-rm apple_versions_and_names.txt
+rm /tmp/apple_versions.txt
+rm /tmp/apple_versions_and_names.txt

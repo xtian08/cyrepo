@@ -6,8 +6,6 @@
 # Date: 2024-11-08
 # Version: 5.0
 
-sudo rm /private/var/log/ws1-MUUpdate*
-
 # Define the path to the start date file read.me ws1muu
 echo $(date)
 start_date_file="/Users/shared/muufile.txt"

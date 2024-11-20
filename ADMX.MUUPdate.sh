@@ -98,6 +98,10 @@ fi
 os_list=$(softwareupdate --list-full-installers | awk -F 'Version: |, Size' '/Title:/{print $2}')
 sorted_os_list=$(sort -r --version-sort <<<"$os_list")
 highest_version=$(echo "$sorted_os_list" | head -n 1)
+ARCH=$(uname -m)
+Cname=$(scutil --get ComputerName)
+SNum=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
+
 # Extract highest_version version
 major_now=$(echo "$highest_version" | cut -d '.' -f 1) 
 minor_now=$(echo "$highest_version" | cut -d '.' -f 2)
@@ -106,14 +110,20 @@ if [ -z "$sub_minor_now" ]; then
     sub_minor_now="0"  
 fi
 #Check if the release date is more than 100 days ago
+
+
 if [ $days_diff -gt $delay_days ]; then
-    echo "Highest version available: $highest_version"
+    echo "Highest version available1: $highest_version"
 elif [ $days_diff -lt 0 ]; then
-    echo "Highest version available: $highest_version"
+    echo "Highest version available2: $highest_version" 
+elif [ "$ARCH" == "arm64" ]; then
+    highest_version="$major_version"
+    echo "Highest version available3: $highest_version"
 elif [ $major_mac -ge $major_version ]; then
-    echo "Highest version available: $highest_version" 
+    echo "Highest version available4: $highest_version"
 else
     highest_version=""
+    echo "Highest version available6: $highest_version"
 fi
 
 # If SU result is empty, set static value
@@ -160,14 +170,14 @@ else
         sudo /usr/local/bin/hubcli notify \
         -t "NYUAD Mandatory macOS Upgrade" \
         -s "$defer_days days deferral had elapsed." \
-        -i "Update is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
+        -i "Update to "$highest_version" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
         sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP
         exit 0
     else
         echo "Notify_Update to $highest_version"
         # Defer option notify
         sudo /usr/local/bin/hubcli notify \
-        -t "NYUAD Mandatory MAC OS Upgrade" \
+        -t "NYUAD MACOS Update to "$highest_version" \
         -s "" \
         -i "Update now to begin. Once installed, you will be notified to restart your computer. The restart may take up to 30 min. You have $remaining_days days remaining to defer this update." \
         -a "Start update now" \

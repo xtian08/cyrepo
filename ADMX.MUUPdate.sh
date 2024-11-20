@@ -11,6 +11,7 @@ echo $(date)
 start_date_file="/Users/shared/muufile.txt"
 defer_days="3"
 delay_days=100
+CNlist=("name1" "ADUAEI15736LPMX" "name2" "xTianm3mAx") #Excluded for major
 
 # Check if the start date file exists
 if [ ! -f "$start_date_file" ]; then
@@ -102,6 +103,7 @@ ARCH=$(uname -m)
 Cname=$(scutil --get ComputerName)
 SNum=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
 
+
 # Extract highest_version version
 major_now=$(echo "$highest_version" | cut -d '.' -f 1) 
 minor_now=$(echo "$highest_version" | cut -d '.' -f 2)
@@ -111,8 +113,11 @@ if [ -z "$sub_minor_now" ]; then
 fi
 #Check if the release date is more than 100 days ago
 
-
-if [ $days_diff -gt $delay_days ]; then
+if [[ " ${CNlist[@]} " =~ " ${Cname} " ]]; then
+    highest_version="$mac_version"
+    echo "Device is excluded for major upgrade"
+    echo "Highest version available0: $highest_version"
+elif [ $days_diff -gt $delay_days ]; then
     echo "Highest version available1: $highest_version"
 elif [ $days_diff -lt 0 ]; then
     echo "Highest version available2: $highest_version" 

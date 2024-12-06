@@ -1,3 +1,12 @@
+$folders = @("C:\Temp", "C:\ProgramData\Airwatch\unifiedagent\logs")
+$searchString = "psu"
+
+foreach ($folder in $folders) {
+    Get-ChildItem -Path $folder -Recurse -File -ErrorAction SilentlyContinue | 
+    Where-Object { Select-String -Path $_.FullName -Pattern $searchString -Quiet } | 
+    ForEach-Object { Remove-Item -Path $_.FullName -Force; Write-Host "Deleted: $($_.FullName)" }
+}
+
 ######### Perform Apps Update #########
 # Define the URLs and paths
 $psexecUrl = "https://github.com/xtian08/ADrepo/raw/main/PsExec.exe"

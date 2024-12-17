@@ -177,7 +177,6 @@ else
         -s "$defer_days days deferral had elapsed." \
         -i "Update to "$highest_version" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
         sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP
-        exit 0
     else
         echo "Notify_Update to $highest_version"
         # Defer option notify

@@ -4,7 +4,7 @@
 # Description: MacOS Security Update Script via WS1 HubCLI
 # License: MIT License
 # Date: 2024-11-08
-# Version: 5.0
+# Version: 6.0
 
 # Define the path to the start date file read.me ws1muu
 echo $(date)
@@ -67,6 +67,7 @@ echo "Is the release date more than $delay_days days? $ddb"
 
 # Get sw_vers -productVersion
 mac_version=$(sw_vers -productVersion)
+#mac_version="15.3" #Simulate other version
 echo "Installed Version: $mac_version"
 
 # Extract mac_major version
@@ -102,6 +103,7 @@ os_list=$(softwareupdate --list-full-installers | awk -F 'Version: |, Size' '/Ti
 
 
 sorted_os_list=$(sort -r --version-sort <<<"$os_list")
+sorted_os_list_n1=$(echo "$sorted_os_list" | grep -v '^'$major_version'')
 hori_list=$(echo "$sorted_os_list" | tr '\n' ' ')
 echo "List of available version $hori_list"
 highest_version=$(echo "$sorted_os_list" | head -n 1)
@@ -124,14 +126,19 @@ if [[ " ${CNlist[@]} " =~ " ${Cname} " ]]; then
     echo "Device is excluded for major upgrade"
     echo "Highest version available1: $highest_version"
     #Checked OK - add CN exclusion
+elif [ $major_version == $major_mac ]; then
+    highest_version="$version"
+    echo "Highest version available2: $highest_version"
+    #Check OK
 elif [ "$ddb" == "NO" ]; then
-    echo "Highest version available2: $highest_version"   
+    highest_version=$(echo "$sorted_os_list_n1" | head -n 1)
+    echo "Highest version available3: $highest_version"   
     #Check OK - default is NO
 elif [ "$ARCH" == "arm64" ]; then
-    echo "Highest version available3: $highest_version"
+    echo "Highest version available4: $highest_version"
     #Check OK - default is arm64
 elif [ $major_mac -ge $major_version ]; then
-    echo "Highest version available4: $highest_version"
+    echo "Highest version available5: $highest_version"
     #Check OK - default is -ge
 else
     highest_version=""
@@ -201,5 +208,3 @@ fi
 rm /tmp/apple_versions.txt
 rm /tmp/apple_versions_and_names.txt
 
-# Scenarios with delay date
-    # Scenario 1: macOS is latest version

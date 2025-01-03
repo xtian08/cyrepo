@@ -11,7 +11,7 @@ echo $(date)
 start_date_file="/Users/shared/muufile.txt"
 defer_days="3"
 delay_days=200
-CNlist=("name1" "ADUAEI15736LPMX" "name2" "xTianm3mAx") #Excluded for major
+CNlist=("name1" "ADUAEI15736LPMX" "name2") #Excluded for major
 
 # Check if the start date file exists
 if [ ! -f "$start_date_file" ]; then
@@ -97,7 +97,13 @@ fi
 
 # Fetch latest OS versions
 os_list=$(softwareupdate --list-full-installers | awk -F 'Version: |, Size' '/Title:/{print $2}')
+
+#Simulate other version
+
+
 sorted_os_list=$(sort -r --version-sort <<<"$os_list")
+hori_list=$(echo "$sorted_os_list" | tr '\n' ' ')
+echo "List of available version $hori_list"
 highest_version=$(echo "$sorted_os_list" | head -n 1)
 ARCH=$(uname -m)
 Cname=$(scutil --get ComputerName)
@@ -117,13 +123,11 @@ if [[ " ${CNlist[@]} " =~ " ${Cname} " ]]; then
     highest_version="$mac_version"
     echo "Device is excluded for major upgrade"
     echo "Highest version available1: $highest_version"
-    #Checked OK
+    #Checked OK - add CN exclusion
 elif [ "$ddb" == "NO" ]; then
-    highest_version="$mac_version"
     echo "Highest version available2: $highest_version"   
     #Check OK - default is NO
 elif [ "$ARCH" == "arm64" ]; then
-    highest_version="$major_version"
     echo "Highest version available3: $highest_version"
     #Check OK - default is arm64
 elif [ $major_mac -ge $major_version ]; then
@@ -172,25 +176,23 @@ else
         sudo rm "$start_date_file"
         exit 0
     fi
-    
-    versionfinal=$(grep "^$highest_version\." /tmp/apple_versions.txt)
 
     if [ $elapsed_days -ge $defer_days ]; then
-        echo "Forced_Update to $versionfinal"
+        echo "Forced_Update to $highest_version"
         sudo /usr/local/bin/hubcli notify \
         -t "NYUAD Mandatory macOS Upgrade" \
         -s "$defer_days days deferral had elapsed." \
-        -i "Update to "$versionfinal" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
-        sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$versionfinal" --installaction InstallASAP
+        -i "Update to "$highest_version" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
+        sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP
     else
-        echo "Notify_Update to $versionfinal"
+        echo "Notify_Update to $highest_version"
         # Defer option notify
         sudo /usr/local/bin/hubcli notify \
-        -t "NYUAD MACOS Update to $versionfinal" \
+        -t "NYUAD MACOS Update to $highest_version" \
         -s "" \
         -i "Update now to begin. Once installed, you will be notified to restart your computer. The restart may take up to 30 min. You have $remaining_days days remaining to defer this update." \
         -a "Start update now" \
-        -b "sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$versionfinal" --installaction InstallASAP" \
+        -b "sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP" \
         -c "Do this later"
     fi
 fi
@@ -198,3 +200,6 @@ fi
 # Clean up temporary files
 rm /tmp/apple_versions.txt
 rm /tmp/apple_versions_and_names.txt
+
+# Scenarios with delay date
+    # Scenario 1: macOS is latest version

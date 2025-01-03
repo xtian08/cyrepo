@@ -111,29 +111,32 @@ sub_minor_now=$(echo "$highest_version" | cut -d '.' -f 3)
 if [ -z "$sub_minor_now" ]; then
     sub_minor_now="0"  
 fi
-#Check if the release date is more than 100 days ago
+#Check if the release date is more than delay days ago
 
 if [[ " ${CNlist[@]} " =~ " ${Cname} " ]]; then
     highest_version="$mac_version"
     echo "Device is excluded for major upgrade"
-    echo "Highest version available0: $highest_version"
-elif [ $days_diff -gt $delay_days ]; then
     echo "Highest version available1: $highest_version"
-elif [ $days_diff -lt 0 ]; then
-    echo "Highest version available2: $highest_version" 
+    #Checked OK
+elif [ "$ddb" == "NO" ]; then
+    highest_version="$mac_version"
+    echo "Highest version available2: $highest_version"   
+    #Check OK - default is NO
 elif [ "$ARCH" == "arm64" ]; then
     highest_version="$major_version"
     echo "Highest version available3: $highest_version"
+    #Check OK - default is arm64
 elif [ $major_mac -ge $major_version ]; then
     echo "Highest version available4: $highest_version"
+    #Check OK - default is -ge
 else
     highest_version=""
-    echo "Highest version available6: $highest_version"
+    echo "Highest version not unavailable"
 fi
 
 # If SU result is empty, set static value
 if [ -z "$highest_version" ]; then
-    # Check if the release date is more than 100 days ago
+    # Check if the release date is more than delay days ago
     if [ $days_diff -gt $delay_days ]; then
         echo "Allowed OS is $major (static)"
     elif [ $major_mac -lt $major_version ]; then

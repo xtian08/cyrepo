@@ -10,7 +10,7 @@
 echo $(date)
 start_date_file="/Users/shared/muufile.txt"
 defer_days="3"
-delay_days=100
+delay_days=200
 CNlist=("name1" "ADUAEI15736LPMX" "name2" "xTianm3mAx") #Excluded for major
 
 # Check if the start date file exists

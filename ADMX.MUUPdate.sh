@@ -170,22 +170,24 @@ else
         exit 0
     fi
     
+    versionfinal=$(grep "^$highest_version\." /tmp/apple_versions.txt)
+
     if [ $elapsed_days -ge $defer_days ]; then
-        echo "Forced_Update to $highest_version"
+        echo "Forced_Update to $versionfinal"
         sudo /usr/local/bin/hubcli notify \
         -t "NYUAD Mandatory macOS Upgrade" \
         -s "$defer_days days deferral had elapsed." \
-        -i "Update to "$highest_version" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
-        sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP
+        -i "Update to "$versionfinal" is being applied on your machines, it will restart automatically once completed. The installation will take up to 30-40 Min and will be notified for reboot." 
+        sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$versionfinal" --installaction InstallASAP
     else
-        echo "Notify_Update to $highest_version"
+        echo "Notify_Update to $versionfinal"
         # Defer option notify
         sudo /usr/local/bin/hubcli notify \
-        -t "NYUAD MACOS Update to $highest_version" \
+        -t "NYUAD MACOS Update to $versionfinal" \
         -s "" \
         -i "Update now to begin. Once installed, you will be notified to restart your computer. The restart may take up to 30 min. You have $remaining_days days remaining to defer this update." \
         -a "Start update now" \
-        -b "sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$highest_version" --installaction InstallASAP" \
+        -b "sudo /usr/local/bin/hubcli mdmcommand --osupdate --productversion "$versionfinal" --installaction InstallASAP" \
         -c "Do this later"
     fi
 fi

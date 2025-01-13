@@ -134,10 +134,6 @@ elif [ "$ddb" == "NO" ]; then
     highest_version=$(echo "$sorted_os_list_n1" | head -n 1)
     echo "Highest version available3: $highest_version"   
     #Check OK - default is NO
-elif [ "$ddb" == "Yes" ]; then
-    highest_version=$(echo "$sorted_os_list_n1" | head -n 0)
-    echo "Highest version available3: $highest_version"   
-    #Check OK - default is NO
 elif [ "$ARCH" == "arm64" ]; then
     echo "Highest version available4: $highest_version"
     #Check OK - default is arm64
@@ -157,7 +153,7 @@ if [ -z "$highest_version" ]; then
     elif [ $major_mac -lt $major_version ]; then
         echo "Allowed OS is $major (static)"
     else
-        major=$((major - 1))
+        if [ $days_diff -gt $delay_days ]; then major=$((major - 0)); else major=$((major - 1)); fi
         echo "Allowed OS is $major"
     fi
     version=$(grep "^$major\." /tmp/apple_versions.txt)

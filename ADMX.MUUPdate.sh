@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Created by Chris Mariano (cdm436@nyu.edu)
@@ -67,7 +68,7 @@ echo "Is the release date more than $delay_days days? $ddb"
 
 # Get sw_vers -productVersion
 mac_version=$(sw_vers -productVersion)
-#mac_version="15.3" #Simulate other version
+#mac_version="14.2" #Simulate other version
 echo "Installed Version: $mac_version"
 
 # Extract mac_major version
@@ -145,16 +146,24 @@ else
     echo "Highest version not unavailable"
 fi
 
+#Simulate other version
+
 # If SU result is empty, set static value
 if [ -z "$highest_version" ]; then
     # Check if the release date is more than delay days ago
-    if [ $days_diff -gt $delay_days ]; then
-        echo "Allowed OS is $major (static)"
+    if [ "$ddb" == "Yes" ]; then
+        major=$((major_version))
+        echo "Allowed OS is $major (static)2"
     elif [ $major_mac -lt $major_version ]; then
-        echo "Allowed OS is $major (static)"
+        echo "Allowed OS is $major (static)1"
     else
-        if [ $days_diff -gt $delay_days ]; then major=$((major - 0)); else major=$((major - 1)); fi
-        echo "Allowed OS is $major"
+        if [ "$ddb" == "Yes" ]; then
+        major=$((major_version))
+        echo "Allowed OS is $major (static)2"
+        else
+        major=$((major - 1))
+        echo "Allowed OS is $major (static)3"
+        fi
     fi
     version=$(grep "^$major\." /tmp/apple_versions.txt)
     highest_version=$version
@@ -207,4 +216,3 @@ fi
 # Clean up temporary files
 rm /tmp/apple_versions.txt
 rm /tmp/apple_versions_and_names.txt
-

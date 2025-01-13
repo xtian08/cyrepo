@@ -134,6 +134,10 @@ elif [ "$ddb" == "NO" ]; then
     highest_version=$(echo "$sorted_os_list_n1" | head -n 1)
     echo "Highest version available3: $highest_version"   
     #Check OK - default is NO
+elif [ "$ddb" == "Yes" ]; then
+    highest_version=$(echo "$sorted_os_list_n1" | head -n 0)
+    echo "Highest version available3: $highest_version"   
+    #Check OK - default is NO
 elif [ "$ARCH" == "arm64" ]; then
     echo "Highest version available4: $highest_version"
     #Check OK - default is arm64

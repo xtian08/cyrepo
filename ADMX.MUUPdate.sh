@@ -10,7 +10,7 @@
 # Define the path to the start date file read.me ws1muu
 echo $(date)
 start_date_file="/Users/shared/muufile.txt"
-defer_days="3"
+defer_days="5"
 delay_days=0
 CNlist=("name1" "ADUAEI15736LPMX" "name2") #Excluded for major
 

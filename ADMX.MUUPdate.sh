@@ -7,6 +7,62 @@
 # Date: 2024-11-08
 # Version: 6.0
 
+#!/bin/bash
+
+# Function to get all active network services
+get_active_service() {
+    # List all network services, skip the first line, and check for active ones
+    networksetup -listallnetworkservices | tail -n +2 | while read -r service; do
+        STATUS=$(networksetup -getinfo "$service" 2>/dev/null | grep -i "IP address" | grep -v "none")
+        if [[ -n "$STATUS" ]]; then
+            echo "$service"
+            return
+        fi
+    done
+}
+
+# Uninstall BloXOne app if installed
+uninstall_bloxone() {
+    BLOXONE_PATH="/Applications/Infoblox/BloxOne Endpoint.app"
+    if [ -d "$BLOXONE_PATH" ]; then
+        echo "BloXOne app found. Uninstalling..."
+        sudo sh /Applications/Infoblox/Uninstall\ BloxOne\ Endpoint.app/Contents/Resources/ib_rc_uninstall.sh --delete_app_data
+        echo "BloXOne app uninstalled."
+    else
+        echo "BloXOne app not found. Skipping uninstallation."
+    fi
+}
+
+# Get the active primary network service
+ACTIVE_SERVICE=$(get_active_service)
+
+if [ -z "$ACTIVE_SERVICE" ]; then
+    echo "No active network service detected."
+    exit 1
+fi
+
+# Get the current DNS servers
+CURRENT_DNS=$(networksetup -getdnsservers "$ACTIVE_SERVICE" 2>/dev/null)
+
+# Echo the current DNS
+echo "Active network service: $ACTIVE_SERVICE"
+echo "Current DNS for '$ACTIVE_SERVICE':"
+if [[ "$CURRENT_DNS" == "There aren't any DNS Servers set on"* ]]; then
+    echo "No DNS servers are set."
+else
+    echo "$CURRENT_DNS"
+fi
+
+# Check if DNS starts with 127.0
+if echo "$CURRENT_DNS" | grep -q "^127\.0"; then
+    echo "DNS starts with 127.0, setting DNS to DHCP (automatic)..."
+    uninstall_bloxone
+    sudo networksetup -setdnsservers "$ACTIVE_SERVICE" "Empty"
+    echo "DNS set to automatic."
+else
+    echo "DNS does not start with 127.0, no changes made."
+fi
+
 # Define the path to the start date file read.me ws1muu
 echo $(date)
 start_date_file="/Users/shared/muufile.txt"
